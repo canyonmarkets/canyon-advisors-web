@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Nokianvirallinenkirjasin';
+  src: url('/fonts/NokianvirallinenkirjasinREGULAR.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-display: Nokianvirallinenkirjasin;
+
+  /* Brand — Canyon orange */
+  --color-brand-50:  #fff4ee;
+  --color-brand-100: #ffe4d0;
+  --color-brand-200: #ffc59d;
+  --color-brand-300: #ff9d62;
+  --color-brand-400: #ff6c27;
+  --color-brand-500: #e8541a;
+  --color-brand-600: #C94B0C;
+  --color-brand-700: #a33a08;
+  --color-brand-800: #7d2c07;
+  --color-brand-900: #5a1f05;
+
+  /* Iron — charcoal gray */
+  --color-iron-100: #f0efee;
+  --color-iron-200: #d8d5d2;
+  --color-iron-300: #b8b4af;
+  --color-iron-400: #908b85;
+  --color-iron-500: #6e6860;
+  --color-iron-600: #504a43;
+  --color-iron-700: #38332d;
+  --color-iron-800: #242019;
+  --color-iron-900: #141210;
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-white text-iron-900; }
+}
+
+@layer utilities {
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0   rgba(201,75,12,.55); }
+    70%  { box-shadow: 0 0 0 14px rgba(201,75,12,0);  }
+    100% { box-shadow: 0 0 0 0   rgba(201,75,12,0);   }
+  }
+  .btn-pulse { animation: pulse-ring 2s ease-out infinite; }
+}
