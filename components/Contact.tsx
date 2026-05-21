@@ -10,20 +10,49 @@ const SERVICES = [
   'General Inquiry',
 ] as const;
 
-export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+type FormState = {
+  name: string;
+  phone: string;
+  email: string;
+  service: string;
+  message: string;
+};
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const EMPTY: FormState = {
+  name: '',
+  phone: '',
+  email: '',
+  service: SERVICES[0],
+  message: '',
+};
+
+export default function Contact() {
+  const [form, setForm] = useState<FormState>(EMPTY);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [sendError, setSendError] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    fetch('/', {
+    setLoading(true);
+    setSendError(false);
+
+    const res = await fetch('/api/contact', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
-    })
-      .then(() => setSubmitted(true))
-      .catch(() => setSubmitted(true));
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    });
+
+    setLoading(false);
+    if (res.ok) {
+      setSubmitted(true);
+    } else {
+      setSendError(true);
+    }
   };
 
   return (
@@ -52,14 +81,7 @@ export default function Contact() {
             <p className="text-white text-base">We will be in touch shortly.</p>
           </div>
         ) : (
-          <form
-            name="canyon-advisors-contact"
-            method="POST"
-            data-netlify="true"
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-5"
-          >
-            <input type="hidden" name="form-name" value="canyon-advisors-contact" />
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="flex flex-col gap-2">
@@ -67,8 +89,12 @@ export default function Contact() {
                   Full Name *
                 </label>
                 <input
-                  type="text" name="name" required
-                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-iron-500 focus:border-brand-500 focus:bg-white/8 focus:outline-none transition-colors"
+                  type="text"
+                  name="name"
+                  required
+                  value={form.name}
+                  onChange={handleChange}
+                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-iron-500 focus:border-brand-500 focus:outline-none transition-colors"
                   placeholder="John Smith"
                 />
               </div>
@@ -77,8 +103,11 @@ export default function Contact() {
                   Phone Number
                 </label>
                 <input
-                  type="tel" name="phone"
-                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-iron-500 focus:border-brand-500 focus:bg-white/8 focus:outline-none transition-colors"
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-iron-500 focus:border-brand-500 focus:outline-none transition-colors"
                   placeholder="(602) 555-0100"
                 />
               </div>
@@ -89,8 +118,12 @@ export default function Contact() {
                 Email Address *
               </label>
               <input
-                type="email" name="email" required
-                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-iron-500 focus:border-brand-500 focus:bg-white/8 focus:outline-none transition-colors"
+                type="email"
+                name="email"
+                required
+                value={form.email}
+                onChange={handleChange}
+                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-iron-500 focus:border-brand-500 focus:outline-none transition-colors"
                 placeholder="you@example.com"
               />
             </div>
@@ -101,6 +134,8 @@ export default function Contact() {
               </label>
               <select
                 name="service"
+                value={form.service}
+                onChange={handleChange}
                 className="rounded-lg border border-white/10 bg-iron-800 px-4 py-3 text-sm text-white focus:border-brand-500 focus:outline-none transition-colors appearance-none"
               >
                 {SERVICES.map((s) => (
@@ -114,19 +149,34 @@ export default function Contact() {
                 Tell Us About Your Situation *
               </label>
               <textarea
-                name="message" required rows={5}
-                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-iron-500 focus:border-brand-500 focus:bg-white/8 focus:outline-none transition-colors resize-none"
+                name="message"
+                required
+                rows={5}
+                value={form.message}
+                onChange={handleChange}
+                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-iron-500 focus:border-brand-500 focus:outline-none transition-colors resize-none"
                 placeholder="Give us a brief overview of what you are looking to accomplish..."
               />
             </div>
 
+            {sendError && (
+              <p className="text-sm text-red-400 text-center">
+                Something went wrong. Please email us at{' '}
+                <a href="mailto:info@canyon-markets.com" className="underline">
+                  info@canyon-markets.com
+                </a>.
+              </p>
+            )}
+
             <button
               type="submit"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-8 py-4 text-base font-semibold text-white uppercase tracking-wide hover:bg-brand-700 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-500/30 active:scale-[0.97] transition-all duration-200 mt-2"
+              disabled={loading}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-8 py-4 text-base font-semibold text-white uppercase tracking-wide hover:bg-brand-700 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-500/30 active:scale-[0.97] transition-all duration-200 mt-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
-              Send Message
+              {loading ? 'Sending…' : 'Send Message'}
               <Send size={16} strokeWidth={2} />
             </button>
+
           </form>
         )}
 
