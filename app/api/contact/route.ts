@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
   const { error } = await resend.emails.send({
     from: 'Canyon Advisors <noreply@canyon-markets.com>',
-    to: 'info@canyon-markets.com',
+    to: 'info@canyon-advisors.com',
     replyTo: email,
     subject: `Canyon Advisors Inquiry — ${service}`,
     text: [
