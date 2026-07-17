@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Send, CheckCircle } from 'lucide-react';
 
 const SERVICES = [
-  'Investment Consulting',
-  'Lease-Option Program',
-  'Corporate Housing Partnership',
+  'Fix & Flip',
+  'Lease-Option / Rent-to-Own',
+  'Cleaning Services',
   'General Inquiry',
 ] as const;
 
@@ -59,7 +59,7 @@ export default function Contact() {
     <section id="contact" className="bg-iron-900 px-6 py-24">
       <div className="max-w-3xl mx-auto">
 
-        <div className="text-center mb-12">
+        <div data-reveal className="text-center mb-12">
           <p className="text-brand-500 font-mono text-base tracking-[0.3em] uppercase mb-4">
             Reach Out
           </p>
@@ -162,8 +162,8 @@ export default function Contact() {
             {sendError && (
               <p className="text-sm text-red-400 text-center">
                 Something went wrong. Please email us at{' '}
-                <a href="mailto:info@canyon-markets.com" className="underline">
-                  info@canyon-markets.com
+                <a href="mailto:info@canyon-advisors.com" className="underline">
+                  info@canyon-advisors.com
                 </a>.
               </p>
             )}

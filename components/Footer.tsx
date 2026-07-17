@@ -9,8 +9,9 @@ const NAV_LINKS = [
 ] as const;
 
 const COMPANIES = [
-  { label: 'Canyon Markets', href: 'https://canyon-markets.com' },
-  { label: 'Canyon Apts',    href: 'https://canyon-apts.com'    },
+  { label: 'Canyon Markets',  href: 'https://canyon-markets.com'         },
+  { label: 'Canyon Apts',     href: 'https://canyon-apts.com'            },
+  { label: 'Canyon Cleaners', href: 'https://cleaners.canyon-advisors.com' },
 ] as const;
 
 export default function Footer() {
@@ -27,8 +28,8 @@ export default function Footer() {
               Canyon Advisors
             </span>
             <p className="text-xs leading-relaxed text-stone-400 max-w-xs">
-              A family-owned real estate consulting, investment, and management firm.
-              Serving clients since 1993.
+              The woman-owned parent company of Canyon Markets, Canyon Apts, and
+              Canyon Cleaners. Built in Phoenix, family-run since 1993.
             </p>
           </div>
 
@@ -79,7 +80,7 @@ export default function Footer() {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-stone-600">&copy; {year} Canyon Advisors. All rights reserved.</p>
-          <p className="text-xs text-stone-700 font-mono tracking-wide">Real Estate · Consulting · Investment</p>
+          <p className="text-xs text-stone-700 font-mono tracking-wide">Three Companies · One Family · Est. 1993</p>
         </div>
       </div>
     </footer>

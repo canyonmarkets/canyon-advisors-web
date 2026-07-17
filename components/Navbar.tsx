@@ -24,21 +24,23 @@ export default function Navbar() {
 
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white shadow-sm border-b border-stone-100' : 'bg-white'
+      scrolled ? 'bg-white/85 backdrop-blur-md shadow-sm border-b border-stone-100' : 'bg-white'
     }`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-8">
 
         {/* Logo */}
-        <a href="#" aria-label="Canyon Advisors home">
+        <a href="#" aria-label="Canyon Advisors home" className="flex items-center gap-3">
           <Image
-            src="/logo.png"
-            alt="Canyon Advisors"
-            width={140}
-            height={48}
+            src="/logo-mark.png"
+            alt=""
+            width={90}
+            height={60}
             className="h-10 w-auto object-contain"
-            style={{ mixBlendMode: 'multiply' }}
-            priority
+            preload={true}
           />
+          <span className="font-display font-bold text-lg sm:text-xl uppercase tracking-widest text-iron-900">
+            Canyon Advisors
+          </span>
         </a>
 
         {/* Desktop nav */}

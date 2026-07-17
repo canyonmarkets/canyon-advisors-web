@@ -1,17 +1,10 @@
-import { Award, Users, MapPin, Briefcase } from 'lucide-react';
+import type { CSSProperties } from 'react';
 
 const STATS = [
-  { value: '30+',  label: 'Years in Business'         },
-  { value: '7',    label: 'Brothers — One Team'        },
-  { value: '3',    label: 'Licensed States'            },
-  { value: '75+',  label: 'Years Combined Experience'  },
-] as const;
-
-const CREDENTIALS = [
-  { icon: Award,    text: 'PhD & MBA on staff'                     },
-  { icon: Briefcase, text: 'Three licensed General Contractors'    },
-  { icon: MapPin,   text: 'Licensed in Arizona, Texas & Tennessee' },
-  { icon: Users,    text: 'Active investors and operators'         },
+  { value: '30+',  label: 'Years in Business'            },
+  { value: '4',    label: 'Family Companies'             },
+  { value: '2',    label: 'Generations'                  },
+  { value: '7',    label: 'Family Members — One Team'    },
 ] as const;
 
 export default function TheFirm() {
@@ -22,53 +15,44 @@ export default function TheFirm() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
           {/* Left — copy */}
-          <div>
+          <div data-reveal>
             <p className="text-brand-600 font-mono text-base tracking-[0.3em] uppercase mb-4">
-              Who We Are
+              Since 1993
             </p>
             <h2 className="font-display font-bold text-4xl sm:text-5xl uppercase tracking-wide text-iron-900 mb-8">
-              A Family Built on Real Estate
+              Two Generations, One Standard
             </h2>
             <div className="flex flex-col gap-5 text-iron-900 text-base leading-relaxed">
               <p>
-                Canyon Advisors was founded in Phoenix in 1993 by a family of seven brothers
-                with a single belief: that real estate, done right, creates lasting financial
-                freedom. What began as a Phoenix brokerage has grown into a multi-market
-                advisory and investment firm serving clients across Arizona, Texas, and Tennessee.
+                Canyon Advisors was founded in Phoenix in 1993. It is woman-owned and
+                family-run — and it has been from the beginning. Thirty years of building
+                businesses, one at a time, under one name.
               </p>
               <p>
-                Our team brings together over 75 years of combined real estate and construction
-                experience. We are not a corporate firm — we are an owner-operated family
-                business where every client relationship is personal. The same brothers who
-                founded this company are still the ones answering your calls.
+                Canyon Advisors started as a real estate and business consulting firm. That
+                work grew into four family businesses instead of one. Today Canyon Advisors
+                focuses on fix-and-flip and lease-option real estate in the Phoenix market —
+                while Canyon Markets, Canyon Apts, and Canyon Cleaners run workplace
+                micro-markets, furnished and corporate housing, and professional cleaning.
+                Four wings, one family.
               </p>
               <p>
-                Whether you are a first-time investor trying to understand the market, an
-                experienced buyer looking for off-market deals, or a family working toward
-                homeownership — we have likely been in your exact situation and helped
-                someone through it.
+                Now the second generation is in the business — raised in it, not recruited to
+                it. Three daughters followed their mother&apos;s footsteps, and the two sons who
+                married into the family work in the companies alongside her. Seven family
+                members, two generations, the same name on the door since 1993.
               </p>
-            </div>
-
-            {/* Credentials */}
-            <div className="mt-10 flex flex-col gap-4">
-              {CREDENTIALS.map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                    <Icon size={18} strokeWidth={1.5} />
-                  </div>
-                  <span className="text-sm font-semibold text-iron-900">{text}</span>
-                </div>
-              ))}
             </div>
           </div>
 
           {/* Right — stats */}
           <div className="grid grid-cols-2 gap-5">
-            {STATS.map(({ value, label }) => (
+            {STATS.map(({ value, label }, i) => (
               <div key={label}
+                data-reveal
+                style={{ '--rd': `${i * 0.09}s` } as CSSProperties}
                 className="flex flex-col gap-2 rounded-2xl border border-stone-200 bg-stone-50 p-8 hover:border-brand-300 hover:bg-white hover:shadow-lg hover:shadow-brand-500/5 transition-all duration-300">
-                <span className="font-display font-bold text-5xl text-brand-600 leading-none">
+                <span data-count className="font-display font-bold text-5xl text-brand-600 leading-none">
                   {value}
                 </span>
                 <span className="text-sm font-semibold uppercase tracking-wide text-iron-600 leading-snug">
@@ -78,12 +62,12 @@ export default function TheFirm() {
             ))}
 
             {/* Markets served */}
-            <div className="col-span-2 rounded-2xl bg-iron-900 p-8">
+            <div data-reveal style={{ '--rd': '0.36s' } as CSSProperties} className="col-span-2 rounded-2xl bg-iron-900 p-8">
               <p className="text-brand-500 font-mono text-xs tracking-[0.2em] uppercase mb-3">
                 Markets Served
               </p>
               <div className="flex flex-wrap gap-3">
-                {['Phoenix, AZ', 'Dallas, TX', 'Memphis, TN', 'Nationwide'].map((city) => (
+                {['Phoenix Metro, AZ', 'Birmingham, AL', 'Northern Indiana'].map((city) => (
                   <span key={city}
                     className="rounded-full border border-white/20 px-4 py-1.5 text-sm font-semibold text-white">
                     {city}
