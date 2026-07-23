@@ -42,3 +42,8 @@ next-env.d.ts
 
 # family photo masters (web copies live in public/family/)
 /Family Photos/
+node_modules/
+.env
+.env.*
+*.log
+Thumbs.db
